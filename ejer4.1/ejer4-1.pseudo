@@ -1,0 +1,54 @@
+//Diseñar un algoritmo para acceder, eliminar o insertar el k-ésimo elemento de una lista (siendo k una posición dada). Si la lista está vacía o si el valor de k esta fuera del rango del índice de la lista, invocar al procedimiento de ERROR. En cualquier otro caso, efectuar el procedimiento solicitado.
+
+ACCION 4.1 (Prim: Puntero a Nodo) ES
+AMBIENTE
+    Nodo = Registro
+        dato: Entero
+        prox: Puntero a Nodo
+    Fin_Registro
+    p, q, a: Puntero a Nodo
+    k: Entero
+    opc: Entero
+ACCION
+Si Prim <> nil Hacer    
+    p:= Prim
+    Escribir("Ingrese una posición para operar:")
+    Leer(k)
+    Mientras p<>nil y k > 1 hacer
+        a:= p
+        p:= *p.prox
+        k:= k-1
+    FinMientras
+    Si p<>nil Hacer
+        Escribir("Ingrese la opción deseada: 1. Acceder, 2. Eliminar, 3. Insertar")
+        Leer(opc)
+        Segun opc hacer
+        1:
+            Escribir("El elemento ", k, " es ", *p.dato)
+        2:
+            Si p <> Prim Hacer 
+                a:= *p.prox
+            Sino
+                Prim:= *p.prox
+            FinSi
+            disponer(p)
+            Escribir("El elemento ", k, " ha sido eliminado")
+        3: 
+            Nuevo(q)
+            Escribir("Ingrese el numero a insertar:")
+            Leer(*q.dato)
+            *q.prox:=p
+            Si p=Prim hacer
+                Prim:=q
+            Sino
+                *a.prox:=q
+            FinSi
+            Escribir("El numero ", *q.dato, " se ha insertado en la posición ", k)
+        FinSegun
+    Sino
+        Escribir("Error, elemento fuera de rango")
+    FinSi
+Sino
+    Escribir("Error, lista vacía")
+FinSi
+FINACCION
