@@ -1,0 +1,69 @@
+// Se dispone de una lista circular con un conjunto de números naturales. Este conjunto está dividido en 6 grupos. En cada grupo el primer elemento indica la cantidad de números subsiguientes a él que integran dicho grupo. Se desea generar una nueva lista doblemente encadenada en la cual cada nodo contendrá el promedio de cada grupo. Dicha lista debe quedar ordenada en forma ascendente y, al final se debe informar cuál fue el máximo y el mínimo promedio de todo el conjunto de números.
+
+ACCION Ejer4.10 (Prim1: Puntero a Nodo1) ES
+Ambiente
+    Nodo1 = Registro
+        num: Entero
+        prox: Puntero a Nodo1
+    FinRegistro
+
+    Nodo2 = Registro 
+        num: Real
+        prox, ult: Puntero a Nodo2
+    FinRegistro
+
+    p: Puntero a Nodo1
+    a, acum: Entero
+    Prim2, Ult2, q, r: Puntero a Nodo2
+    prom: Real
+Proceso
+p:=Prim
+Repetir 
+    a:= *p.num
+    p:= *p.prox
+    acum:= 0
+    Para i:=1 hasta a hacer
+        acum:= acum + *p.num
+        p:= *p.prox
+    FinPara
+
+    prom:= acum/a
+
+    nuevo(q)
+    *q.num:= prom
+    *q.prox:= nil
+    *q.ant:= nil
+
+    //Insersion Ordenada
+    Si Prim2 = nil hacer
+        //Insertando el primer elemnto
+        Prim2:= q
+        Ult2:= q
+    Sino
+        //Carga ordenada
+        r:= Prim2
+        Mientras *r.num <= *q.num o r <> nil hacer //Carga ascendente
+            r:= *r.prox
+        FinMientras
+        
+        Si r <> Ult2 y r <> Prim2 Entonces
+            *(*r.ant).prox:= q
+            *q.ant:= *r.ant
+            *q.prox:= r
+            *r.ant:= q
+        Sino
+            Si r = Prim2 Entonces
+                Prim2:= q
+                *q.prox:= r
+                *r.ant:= q
+            Sino
+                Ult2:= q
+                *q.ant:= Ult2
+                *Ult2.prox:= q
+            FinSi
+        FinSi
+    FinSi
+Hasta que (p<>Prim)
+Escribir("El promedio minimo es: ", *Prim2.num)
+Escribir("El promedio máximo es: ", *Ult2.num)
+FINACCION
