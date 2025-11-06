@@ -18,11 +18,11 @@ Ambiente
     prom: Real
 Proceso
 p:=Prim
-Repetir 
+Para j:= 0 hasta 6 Hacer
     a:= *p.num
     p:= *p.prox
     acum:= 0
-    Para i:=1 hasta a hacer
+    Para i:=1 hasta a Hacer
         acum:= acum + *p.num
         p:= *p.prox
     FinPara
@@ -57,13 +57,13 @@ Repetir
                 *q.prox:= r
                 *r.ant:= q
             Sino
-                Ult2:= q
                 *q.ant:= Ult2
                 *Ult2.prox:= q
+                Ult2:= q
             FinSi
         FinSi
     FinSi
-Hasta que (p<>Prim)
+FinPara
 Escribir("El promedio minimo es: ", *Prim2.num)
 Escribir("El promedio máximo es: ", *Ult2.num)
 FINACCION

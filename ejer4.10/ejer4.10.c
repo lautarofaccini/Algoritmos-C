@@ -29,9 +29,9 @@ void Ejer4_10(Nodo1 *Prim1)
     Nodo2 *Prim2 = NULL;
     Nodo2 *Ult2 = NULL;
 
-    do
-    {                     // Repetir
-        int a = (*p).num; // cantidad de elementos del grupo
+    for (int j = 0; j < 6; j++) // recorrer lista circular completa de 6 grupos
+    {
+        int a = (*p).num;      // cantidad de elementos del grupo
         p = (*p).prox;
 
         int acum = 0;
@@ -69,9 +69,9 @@ void Ejer4_10(Nodo1 *Prim1)
             // Caso 2: insertar al final
             if (r == NULL)
             {
-                Ult2 = q;
                 (*q).ant = Ult2;
                 (*Ult2).prox = q;
+                Ult2 = q;
             }
             // Caso 3: insertar al inicio
             else if (r == Prim2)
@@ -89,8 +89,7 @@ void Ejer4_10(Nodo1 *Prim1)
                 (*r).ant = q;
             }
         };
-    } while (p != Prim1); // recorrer lista circular completa
-
+    };
     // Mostrar lista circular
     printf("Lista circular:\n");
     Nodo1 *temp1 = Prim1;
@@ -128,7 +127,7 @@ Nodo1 *crearListaCircularEjemplo()
 {
     // Ejemplo con 6 grupos, cada uno comienza con la cantidad de elementos que siguen
     // Por ejemplo: [3, 10, 20, 30, 2, 5, 15, 1, 7, ...]
-    int datos[] = {3, 10, 20, 30, 2, 5, 15, 1, 7, 4, 12, 14, 16, 2};
+    int datos[] = {3, 10, 20, 30, 2, 5, 15, 1, 7, 4, 12, 14, 16, 2, 5, 1, 2, 3, 4, 5, 3, 100, 101, 10};
     int n = sizeof(datos) / sizeof(datos[0]);
 
     Nodo1 *Prim = NULL;
