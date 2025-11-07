@@ -9,3 +9,87 @@ La información almacenada debe mantenerse ordenada por Nombre del cliente.
 */
 ACCION Ejer4_06 ES
 Ambiente
+    Fecha = Registro
+        Aa: N(4)
+        Mm: N(2)
+        Dd: N(2)
+    FinRegistro
+
+    Nodo = Registro
+        nombre: AN(50)
+        consumo: Real
+        fecha: Fecha
+        n_mesa: N(2)
+        prox: Puntero a Nodo
+    FinRegistro
+    
+    Prim, p, ant, q: Puntero a Nodo
+    op, opc: Entero
+    nombre: AN(50)
+    consumo: Real
+
+    Proceso BuscarCliente() Es
+        p:= Prim
+        Mientras *p.nombre <> nombre Hacer
+            ant:= p
+            p:= *p.prox
+        FinMientras
+    FinProceso
+Proceso
+    Prim:= Nil
+    p:= Nil
+    Esc("Desea empezar con la jornada? 1. Si 2. No")
+    Leer(op)
+    Mientras (op = 1) Hacer
+        Esc("Que desea hacer? 1. Cargar Cliente, 2. Registrar Consumo, 3. Realizar Cobro, 4. Eliminar Cliente")
+        Leer(opc)
+        Esc("Ingrese el nombre del cliente")
+        Leer(nombre)
+        Segun opc Hacer
+        1:
+            Nuevo(q)
+            *q.nombre:= nombre
+            Esc("Ingrese el numero de su mesa: ")
+            Leer(*q.n_mesa)
+            *q.consumo:= 0
+            *q.fecha:= fechaActual()
+            *q.prox:= Nil
+            p:= Prim
+            Mientras p <> Nil y *p.nombre < *q.nombre Hacer
+                ant:= p
+                p:= *p.prox
+            FinMientras
+            Si ant = Nil Entonces
+                *q.prox:= Prim
+                Prim:= q
+            Sino
+                *ant.prox:= q
+                *q.prox:= p
+            FinSi
+        2:
+            BuscarCliente()
+            Esc("Ingrese el nuevo consumo: ")
+            Leer(consumo)
+            *p.consumo:= consumo
+        3:
+            BuscarCliente()
+            Esc("Ticket:")
+            Esc("Nombre: ", *p.nombre)
+            Esc("Fecha: ", *p.fecha)
+            Esc("Numero de Mesa", *p.n_mesa)
+            Esc("Total: ", *p.consumo)
+        4:
+            BuscarCliente()
+            Si p = Prim Entonces
+                Prim:= *p.prox
+            Sino
+                *ant.prox:= *p.prox
+            FinSi
+            Disponer(p)
+        Sino 
+            Esc("Opcion inválida")
+        FinSegun
+        Esc("Desea continuar? 1. Si, 2. No")
+        Leer(op)
+    FinMientras
+FINACCION
