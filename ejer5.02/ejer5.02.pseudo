@@ -1,0 +1,25 @@
+/* 
+Dado un número n como parámetro de entrada, calcular el n-ésimo número de la serie de Fibonacci. Tener en cuenta la siguiente definición:
+
+Fib(n) = {
+1, si n = 1, n = 2
+Fib(n−1) + Fib(n−2), si n > 2
+*/
+
+ACCION Ejer5.02 ES
+Ambiente
+    n: Real
+
+    Funcion Fib(n: Real): Real Es
+        Si n = 1 o n = 2 Entonces
+            Fib:= 1
+        Sino
+            Fib:= Fib(n-1) + Fib(n-2)
+        FinSi
+    FinFuncion
+
+Proceso
+    Escribir("Escriba un número para calcular Fibonacci: ")
+    Leer(n)
+    Escribir(Fib(n))
+FINACCION

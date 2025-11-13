@@ -1,0 +1,81 @@
+Accion 4.12,2 es
+Ambiente 
+Nodo = registro
+    Nomb_cli:an(30)
+    Estado{p,e}
+    Dirección:an(30) 
+    Teléfono:n(10)
+    Total:n(6,2)
+    Prox,ant:puntero a Nodo
+fr
+Prim,P,Q,Ult:puntero a Nodo
+
+Procedimiento registrar () es
+    P:=Prim
+    Ant:=Nill
+    Nuevo (Q)
+    *Q.Estado:=p
+    *Q.Dirección:=Dirección
+    *Q.Telefono:=Telefono
+    *Q.Monto:=0
+    *Q.Total:=0
+    Mientras (*P.Nomb_cli <> Nomb_cli) y (P <> Nill)
+        Ant:=P
+        P:=*P.prox
+    fm
+    Si (Ant = Nill) entonces
+        *Q.prox:=Prim
+        Prim:=Q
+    Sino
+        *ant.prox:=Q
+        *Q.prox:=P
+    Fin_si
+Fp
+
+Procedimiento envio () es
+    *P.Estado:=e
+    *P.Monto:=P.Monto
+    *P.Total:=P.Total
+Fp
+
+Procedimiento Eliminacion () es
+    Mientras (*P.Nomb_cli <> Nomb_cli) y (P <> Nill)
+        Ant:=P
+        P:=*P.prox
+    fm
+    Si (*P.Estado = P ) entonces
+        Esc ("Syntaxhis error") 
+    Sino
+        Si (P=Prim) entonces 
+            *Q:=P
+            *Q.prox:=Nill
+            *Q.ant:=Nill
+            Disponer(P)    
+        Sino 
+            Si (*P.Nomb_cli = Nomb_cli) 
+                Nuevo (Q)
+                *Q:=p
+                *Prim:=P.prox
+                *P:=P.prox
+                *P.prox:=(P.prox).prox
+                Disponer (Q)
+            Sino
+                Esc("Eror")
+            Fin_si
+        Fin_si
+    Fin_si
+Fp           
+opcion: n(1)
+
+Proceso
+ESC("Ingrese el nombre del cliente"); leer(*Q.Nomb_cli)
+Repetir
+    Esc("Eliga una opcion"); leer (Opcion)
+    Segun opcion hacer
+        =1:registrar()
+        =2:envio()
+        =3:Eliminacion()
+        =4:Esc ("no vuelvas nunca mas")
+    fin_segun
+hasta que opcion = 4
+Fin_accion

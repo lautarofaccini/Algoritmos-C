@@ -7,6 +7,8 @@ Realizar el cobro (emitir ticket con Nombre, Fecha, Número de Mesa y Total).
 Eliminar del listado de atención.
 La información almacenada debe mantenerse ordenada por Nombre del cliente.
 */
+
+//Al cobrar, eliminar
 ACCION Ejer4_06 ES
 Ambiente
     Fecha = Registro

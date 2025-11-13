@@ -1,0 +1,103 @@
+/*
+En el nuevo DELIVERY VAMOS-RAPIDO se está diseñando una solución informática para la atención de clientes. Se ha pensado en una LISTA por su dinamismo en cuanto a la cantidad de elementos. Diseñe un algoritmo que realice las siguientes funciones:
+
+Registrar su pedido en una lista Doble (se agrega en Estado P (Pendiente), y se mantiene ordenado por Nombre del Cliente).
+Realizar el envío (cambia estado del pedido de P (pendiente) a E (Enviado)).
+Eliminar del listado de atención una vez recibido el cobro (al atender el cobro del cadete que hizo el trabajo).
+Datos a almacenar por pedido: Nombre, Dirección, Teléfono y Total.
+La información almacenada debe mantenerse ordenada por Nombre del cliente.
+*/
+
+accion 4.12 es
+ambiente
+Nodo = registro
+    Nomb_cli:an(30)
+    Estado{p,e} // Falta : para el tipo y asignarlo como carácter -> Estado: {"p", "e"}
+    Dirección:an(30) // El nombre de variables no pueden tener acento
+    Teléfono:n(10)
+    Total:n(6,2)
+    Prox,ant:puntero a Nodo
+fr
+Prim,P,Q,Ult:puntero a Nodo
+
+Procedimiento registrar pedido () es
+    Si (Prim=NIl) entonces
+        Nuevo (Q)
+        *Q.Estado:=p
+        *Q.Dirección:=Dirección
+        *Q.Telefono:=Telefono
+        *Q.Monto:=0
+        *Q.Total:=0
+        Prim:=Q
+        Q.ant:=NIl
+        Q.prox:=Nill
+    Sino
+        Q:=Ult
+        Ult:=Ult.prox
+        Ult.prox:=(Ult.prox).prox
+        Ult.ant:=Q
+        *P.prox:=Q
+        *Q.ant:=P
+        *Q.prox:=Ult
+    fm 
+Fp
+Procedimiento envio () es
+    *P.Estado:=e
+    *P.Monto:=P.Monto
+    *P.Total:=P.Total
+Fp
+
+Procedimiento Eliminacion () es
+    Si (*P.Estado = p) entonces
+    Esc ("no se puede realizar el cobro")
+    Sino
+        Si (Prim =Nill) entonces 
+            Nuevo (Q)
+            *Q:=P
+            *Q.prox:=Nill
+            *Q.ant:=Nill
+            Disponer(P)    
+        Sino 
+            Si (*P.Nomb_cli = Nomb_cli) 
+                Nuevo (Q)
+                *Q:=p
+                *Prim:=P.prox
+                *P:=P.prox
+                *P.prox:=(P.prox).prox
+                Disponer (Q)
+            Sino
+                Esc("Eror")
+            Fin_si
+        Fin_si
+    Fin_si
+Fp             
+Opcion:n(1)
+
+Proceso
+Prim:=NIl
+P:=Prim
+// Falta ciclo de ejecución
+// Queres empezar a operar?
+// Mientras el usuario quiera seguir operando, que opere
+ESC("Ingrese el nombre del cliente"); leer(*Q.Nomb_cli)
+Mientras (*P.Nomb_cli <> Nomb_cli) y (P <> Nill) hacer
+    P:=P.prox
+fm
+Si (*P.Nomb_cli = Nomb_cli) entonces 
+    Esc("eliga una opcion de que hacer") leer (opcion)
+        Segun opcion hacer
+        =1:Esc ("Error no se puede registrar a alguien ya existente")
+        =2:envio ()
+        =3:Eliminacion () 
+        =4:Esc ("no vuelvas nunca mas")
+    fin_segun
+Sino
+    Esc ("Eliga una opcion"), leer (opcion)
+    Segun opcion hacer
+        =1:registrar pedido ()
+        =2:Esc ("No se puede cambiar el estado de un cliente recien registrado")
+        =3:Esc ("No se puede eliminar a un usuario creado recientemente")
+        =4:Esc ("no vuelvas nunca mas")
+    fin_segun
+Fin_si
+Fin_accion

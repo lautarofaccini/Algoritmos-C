@@ -1,0 +1,25 @@
+/* 
+Calcular el factorial de un número positivo n. Tener en cuenta la definición matemática de n!:
+
+n! = {
+1, si n = 0
+n×(n−1)!, si n > 0
+*/
+
+ACCION Ejer5.01 ES
+Ambiente
+    n: Real
+    Funcion factorial(n: Real):Real Es
+        Si n = 0 Entonces
+            Escribir("factorial(0) = 1")
+            factorial:= 1
+        Sino
+            factorial:= n * factorial(n-1)
+            Escribir(n, " * factorial(", n-1, ") = ", factorial(n-1))
+        FinSi
+    FinFuncion
+Proceso
+    Escribir("Ingrese el número para calcular su factorial: ")
+    Leer(n)
+    Escribir(factorial(n))
+FINACCION
