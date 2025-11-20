@@ -1,0 +1,15 @@
+Funcion Pares(N: Entero): Logico Es
+    Si N > 10 Entonces
+        Si (N MOD 10) MOD 2 = 0 Entonces
+            Pares:= Pares(N DIV 10)
+        Sino
+            Pares:= Falso
+        FinSi
+    Sino
+        Si N MOD 2 = 0 Entonces
+            Pares:= Verdadero
+        Sino 
+            Pares := Falso
+        FinSi
+    FinSi
+FinFuncion
