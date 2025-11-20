@@ -39,32 +39,28 @@ Ambiente
         Mientras p <> nil y *p.nombre < *q.nombre Hacer
             p:= *p.prox
         FinMientras
-        Si Prim = nil Entonces
+        // Insercion ordenada de lista doble
+        Si Prim = nil Entonces // Lista vacía
             Prim:= q
             Ult:= q
         Sino
-            Si *p.ant = nil Entonces
-                Si *p.nombre > *q.nombre
-                    *q.prox:= Prim
-                    *p.ant:= q
-                    Prim:= q
-                Sino
-                    *p.prox:= q
-                    *q.ant:= p
-                    Ult:= q
-                FinSi
+            Si p = Prim y *p.nombre > *q.nombre Entonces // Primer elemento a la izquierda
+                *q.prox = Prim;
+                *Prim.ant = q;
+                Prim = q;
             Sino
-                Si p = nil Entonces
+                Si p = nil Entonces // Ultimo elemento a la derecha
                     *Ult.prox:= q
                     *q.ant:= Ult
                     Ult:= q
-                Sino
+                Sino // Insercion en el medio a la izquierda
                     *(*p.ant).prox:= q
                     *q.ant:= *p.ant
                     *q.prox:= p
                     *p.ant:= q
                 FinSi
             FinSi
+        FinSi
     FinProcedimiento
 
     Procedimiento eliminarPedido() Es

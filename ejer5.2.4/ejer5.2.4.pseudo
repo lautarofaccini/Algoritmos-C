@@ -1,0 +1,18 @@
+ACCION Ejer5.2.4 ES
+Ambiente
+    Proceso Binario(x: Entero) Es
+        Si x/2 = 0 Entonces
+            Esc("1")
+        Sino
+            Binario(x/2)
+            Esc(x MOD 2)
+        FinSi
+    FinProceso
+
+    x: Entero
+Proceso
+    Esc("Escribe un numero")
+    Leer(x)
+    Esc("El numero binario es: ")
+    Binario(x)
+FINACCION
